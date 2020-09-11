@@ -17,7 +17,19 @@ router.get("/test", (req, res) => {
   // req.userData 为data文件的数据（已转成对象）
   res.send(returnData(0, `test`, req.userData["186301111111"]));
 });
-
+router.post("/login", (req, res) => {
+  var phone = req.session.phone;
+  if (phone) {
+    console.log("已经存在！", phone);
+  } else {
+    req.session.phone = req.body.id;
+    console.log("已经设置：", phone);
+  }
+  res.send(req.body.phone);
+});
+router.get("/login", (req, res) => {
+  res.render("index");
+});
 // 尝试写入文件内容
 router.get("/test1", (req, res) => {
   let data = req.userData;
@@ -46,7 +58,17 @@ function returnData(code, message, data = {}) {
     data: data,
   };
 }
-
+// 判断是否登陆
+router.get("/checkLogin", (req, res) => {
+  var phone = req.session.phone;
+  if (phone) {
+    // 已经登陆
+    res.send(returnData(0, "已登陆用户", { phone: phone }));
+  } else {
+    // 未登录
+    res.send(returnData(1, "未登陆用户"));
+  }
+});
 //接收手机验证码等信息 并注册 或者返回验证码错误
 router.post("/addUser", function (req, res) {
   // 获取订单ID
@@ -85,13 +107,13 @@ router.post("/addUser", function (req, res) {
           utils.writeFile("user.json", data).then((result) => {
             // 成功写入文件
             res.send(returnData(0, result));
-            // TODO 记录登陆状态
           });
         } else {
           // 用户存在执行的逻辑
-          // TODO 记录登陆状态
           res.send(returnData(1, "已经存在的用户"));
         }
+        // 无论是否新用户，都建立Cookie
+        req.session.phone = phone;
       } else {
         // 验证码不正确
         res.send(returnData(1, "验证码错误！", data.data));
