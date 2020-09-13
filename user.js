@@ -71,7 +71,7 @@ router.get("/checkLogin", (req, res) => {
 });
 //接收手机验证码等信息 并注册 或者返回验证码错误
 router.post("/addUser", function (req, res) {
-  // 获取订单ID
+  // 获取手机短信验证码的ID
   var vcodeID = req.body.vcodeID;
   // 获取手机号码
   var phone = req.body.mobile;

@@ -28,6 +28,7 @@ app.all("*", (req, res, next) => {
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   next();
 });
+
 app.use(express.static(__dirname + "/public"));
 let utils = require("./utils");
 app.use(async function (req, res, next) {
@@ -37,6 +38,7 @@ app.use(async function (req, res, next) {
   req.goodsData = await utils.readFile("goods.json");
   next();
 });
+
 app.use("/user", require("./user"));
 app.use("/function", require("./function"));
 
