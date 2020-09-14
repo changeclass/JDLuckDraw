@@ -110,6 +110,10 @@ router.post("/addUser", function (req, res) {
           });
         } else {
           // 用户存在执行的逻辑
+          if (!data[phone][time]) {
+            data[phone][time] = [];
+            utils.writeFile("user.json", data);
+          }
           res.send(returnData(1, "已经存在的用户"));
         }
         // 无论是否新用户，都建立Cookie
