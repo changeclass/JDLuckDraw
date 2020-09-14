@@ -1,3 +1,9 @@
+/*
+ * @Author: 小夜勃
+ * @Date: 2020-09-13 09:48:02
+ * @LastEditTime: 2020-09-14 14:45:38
+ * @小夜勃博客:https://zxq.acs.pw/
+ */
 const express = require("express");
 
 var bodyParser = require("body-parser");
@@ -34,6 +40,9 @@ let utils = require("./utils");
 app.use(async function (req, res, next) {
   // 读取用户数据
   req.userData = await utils.readFile("user.json");
+  // 测试
+  // req.aaa = await utils.readFile("aaa.json");
+
   // 读取商品数据
   req.goodsData = await utils.readFile("goods.json");
   next();

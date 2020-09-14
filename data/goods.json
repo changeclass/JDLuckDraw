@@ -1,1 +1,25 @@
-["eqwe"]
+ [{
+         "prizeName": "一等奖：iphone手机",
+         "prizeImg": "https://files.alexhchu.com/2020/09/14/971931e7ab70f.png"
+     },
+     {
+         "prizeName": "二等奖：京东1000元购物卡",
+         "prizeImg": "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png"
+     },
+     {
+         "prizeName": "三等奖：京东300元购物卡",
+         "prizeImg": "https://files.alexhchu.com/2020/09/14/6482a474540df.png"
+     },
+     {
+         "prizeName": "四等奖：100元话费",
+         "prizeImg": "https://files.alexhchu.com/2020/09/14/10eaaa9cbe4be.png"
+     },
+     {
+         "prizeName": "五等奖：50元话费",
+         "prizeImg": "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png"
+     },
+     {
+         "prizeName": "谢谢参与",
+         "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
+     }
+ ]
