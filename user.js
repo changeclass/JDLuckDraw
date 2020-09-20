@@ -5,6 +5,7 @@ const fs = require("fs");
 const router = express.Router();
 
 const utils = require("./utils");
+const { nowDay } = require("./utils");
 /**
  * 通过 req.userData 可以获取data.json文件夹的数据（已转成对象）
  * 通过对returnData传参可返回向客户端返回的数据
@@ -15,6 +16,7 @@ const utils = require("./utils");
 // 尝试读取文件内容
 router.get("/test", (req, res) => {
   // req.userData 为data文件的数据（已转成对象）
+  console.log(utils.drawCount());
   res.send(returnData(0, `test`, req.userData["186301111111"]));
 });
 router.post("/login", (req, res) => {
@@ -92,7 +94,6 @@ router.post("/addUser", function (req, res) {
     },
   })
     .then(function (data) {
-      console.log(data);
       if (data.data.is_valid) {
         // 验证码正确执行的逻辑
         // 用户数据
@@ -106,7 +107,7 @@ router.post("/addUser", function (req, res) {
           data[phone][time] = [];
           utils.writeFile("user.json", data).then((result) => {
             // 成功写入文件
-            res.send(returnData(0, result));
+            res.send(returnData(0, result, { iphone: phone, count: 2 }));
           });
         } else {
           // 用户存在执行的逻辑
@@ -114,7 +115,10 @@ router.post("/addUser", function (req, res) {
             data[phone][time] = [];
             utils.writeFile("user.json", data);
           }
-          res.send(returnData(1, "已经存在的用户"));
+          let count = 2 - data[phone][time].length;
+          res.send(
+            returnData(0, "已经存在的用户", { iphone: phone, count: count })
+          );
         }
         // 无论是否新用户，都建立Cookie
         req.session.phone = phone;
@@ -124,7 +128,8 @@ router.post("/addUser", function (req, res) {
       }
     })
     .catch((err) => {
-      res.send(returnData(1, "暂时出现了一点小问题，请稍后在尝试。"));
+      console.log(err);
+      res.send(returnData(1, "验证码好像不对哈！"));
     });
 });
 // 接收手机号并发送短信

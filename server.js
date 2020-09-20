@@ -1,9 +1,3 @@
-/*
- * @Author: 小夜勃
- * @Date: 2020-09-13 09:48:02
- * @LastEditTime: 2020-09-14 14:45:38
- * @小夜勃博客:https://zxq.acs.pw/
- */
 const express = require("express");
 
 var bodyParser = require("body-parser");

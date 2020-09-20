@@ -1,34 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>抽奖</title>
+    <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <script src="./js/index.js"></script>
 </head>
-
 <body>
-    <p></p>
-    <button>按钮</button>
-    <script>
-        $('button').on('click', function () {
-            $.ajax({
-                url: 'http://127.0.0.1:3000/user/login',
-                type: 'post',
-                data: {
-                    id: '123'
-                },
-                xhrFields: {
-                    withCredentials: true //允许跨域带Cookie
-                },
-                success: function (data) {
-                    $('p').html(data)
-                }
-            })
-        })
+    
+    <div class="center">
+        <div class="header">
+            <span>
+                <p>登陆</p>
+            </span>
+            <span>
+                <p>我的奖品</p>
+            </span>
+        </div>
+        <!-- <img src="./img/s/2.png" alt="" class="img1"> -->
+        <canvas id="myCanvas" width="400" height="400"></canvas>
+        <button class="turnplatw_btn"> 
+            <img src="./img/chou.png" class="turnplatw_img">
+        </button>
+        <div class="frequency">
+            <p>剩余次数：<span></span></p>
+        </div>
+        <div class="explain">
+            <span>规则说明</span>
+            <p>
+                1.每人每天有3次幸运夺宝的机会。<br>
+                2.中奖结果以界面的弹出为准。<br>
+                3.抽中实物请填写正确资料并与客服联系。<br>
+                4.活动结束后统一发放。<br>
+                5.其它奖品自动发放,感谢参与!<br>
+            </p>
+        </div>
+    </div>
+    
+    <div class="showS">
+        <div class="bg">
+            <img src="https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png" alt="">
+            <p>自动回复</p>
+            <div class="onCbu">确定</div>
+        </div>
+    </div>
+    <div class="meng"></div>
 
-    </script>
+    <!-- 登陆按钮 -->
+    <div class="land">
+        <div class="onle">X</div>
+        <!-- 名称 -->
+        <!-- <input name="uname" class="inputOne" type="text" placeholder="名称："> -->
+        <span>注册/登陆</span>
+        <input type="text" name="msg_id" value="3242452244" style="display:none;">
+        <!-- 手机号 -->
+        <input name="phone" class="inputOne"  type="text" maxlength="11" placeholder="手机号：">
+        <!-- 获取验证码 -->
+        <div class="obtain_code">获取验证码</div>
+        <!-- 验证码 -->
+        <input name="vcode" type="text" maxlength="6" placeholder="验证码：">
+        <div class="onlogin">注册/登陆</div>
+        <!-- <div class="butMy" style="width: 1000px;height: 1000px;background: red;z-index: 130;"></div> -->
+        <div class="xian"></div>
+        <p>
+            1. 如果你注册了那么将直接登陆。<br>
+            2. 如果你没有注册那么将进行注册然后在登陆。<br>
+            3. 反正就这一种登陆方式。<br>
+            4. 真正后面需要用户名了直接可以将手机为用户名。<br>
+            5. 密码后期可以加。<br>
+        </p>
+    </div>
+    <!-- 查看我的奖品 -->
+    <div>
+
+    </div>
 </body>
-
 </html>
