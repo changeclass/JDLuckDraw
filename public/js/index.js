@@ -9,7 +9,7 @@ $(function () {
     name: "",
     index: 0,
     //剩余次数
-    frequency: 2,
+    frequency: 0,
   };
   var shangpinList = [];
   var settings = {
