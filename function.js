@@ -48,6 +48,7 @@ router.get("/prizeInformation", (req, res) => {
 // 点击抽奖
 router.post("/lottery", (req, res) => {
   let prize = req.body.prize;
+  prize = JSON.parse(prize);
   // let phone = req.body.phone;
   // let {prize,phone} = req.body;
   console.log(typeof prize);
