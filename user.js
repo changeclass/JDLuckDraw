@@ -92,7 +92,6 @@ router.post("/addUser", function (req, res) {
     },
   })
     .then(function (data) {
-      console.log(data);
       if (data.data.is_valid) {
         // 验证码正确执行的逻辑
         // 用户数据
@@ -106,7 +105,7 @@ router.post("/addUser", function (req, res) {
           data[phone][time] = [];
           utils.writeFile("user.json", data).then((result) => {
             // 成功写入文件
-            res.send(returnData(0, result));
+            res.send(returnData(0, result, { iphone: phone }));
           });
         } else {
           // 用户存在执行的逻辑
@@ -114,7 +113,7 @@ router.post("/addUser", function (req, res) {
             data[phone][time] = [];
             utils.writeFile("user.json", data);
           }
-          res.send(returnData(1, "已经存在的用户"));
+          res.send(returnData(0, "已经存在的用户", { iphone: phone }));
         }
         // 无论是否新用户，都建立Cookie
         req.session.phone = phone;
@@ -124,7 +123,8 @@ router.post("/addUser", function (req, res) {
       }
     })
     .catch((err) => {
-      res.send(returnData(1, "暂时出现了一点小问题，请稍后在尝试。"));
+      console.log(err);
+      res.send(returnData(1, "验证码好像不对哈！"));
     });
 });
 // 接收手机号并发送短信
