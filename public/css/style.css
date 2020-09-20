@@ -226,7 +226,7 @@
     background: #666666;
     color: #fff;
     border-radius: 6px;
-
+    cursor: pointer;
 }
 .onlogin{
     width: 80%;

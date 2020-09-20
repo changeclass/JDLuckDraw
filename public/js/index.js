@@ -10,6 +10,19 @@ $(function(){
         //剩余次数
         'frequency':1
     }
+    var shangpinList = []
+    var settings = {
+        "url": "http://localhost:3000/function/prizeInformation",
+        "method": "GET",
+        "timeout": 0,
+        "data": {}
+    };
+    $.ajax(settings).done(function (response) {
+        console.log(response.data)
+        shangpinList = response.data
+    });
+
+
     $('.frequency p>span').text(last_prize.frequency)
     var canvas = $('#myCanvas');
     if(canvas.getContext) {
@@ -20,39 +33,7 @@ $(function(){
         // 内部扇形
         fan_piece(8,150);
         //
-        img([{
-            "prizeName": "手机",
-            "prizeImg": "https://files.alexhchu.com/2020/09/14/971931e7ab70f.png"
-        },
-        {
-            "prizeName": "1000元",
-            "prizeImg": "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png"
-        },
-        {
-            "prizeName": "300元",
-            "prizeImg": "https://files.alexhchu.com/2020/09/14/6482a474540df.png"
-        },
-        {
-            "prizeName": "100元话费",
-            "prizeImg": "https://files.alexhchu.com/2020/09/14/10eaaa9cbe4be.png"
-        },
-        {
-            "prizeName": "50元话费",
-            "prizeImg": "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png"
-        },
-        {
-            "prizeName": "谢谢参与1",
-            "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
-        },
-        {
-            "prizeName": "谢谢参与2",
-            "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
-        },
-        {
-            "prizeName": "谢谢参与3",
-            "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
-        }
-        ])
+        img(shangpinList)
     }
     // 绘制 4个外圈的圆
     function  four_circular(){
@@ -204,78 +185,14 @@ $(function(){
             four_circular();
             // 内部扇形
             fan_piece(8,150);
-            img([{
-                "prizeName": "iphone手机",
-                "prizeImg": "https://files.alexhchu.com/2020/09/14/971931e7ab70f.png"
-            },
-            {
-                "prizeName": "1000元购物卡",
-                "prizeImg": "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png"
-            },
-            {
-                "prizeName": "300元购物卡",
-                "prizeImg": "https://files.alexhchu.com/2020/09/14/6482a474540df.png"
-            },
-            {
-                "prizeName": "100元话费",
-                "prizeImg": "https://files.alexhchu.com/2020/09/14/10eaaa9cbe4be.png"
-            },
-            {
-                "prizeName": "50元话费",
-                "prizeImg": "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png"
-            },
-            {
-                "prizeName": "谢谢参与1",
-                "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
-            },
-            {
-                "prizeName": "谢谢参与2",
-                "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
-            },
-            {
-                "prizeName": "谢谢参与3",
-                "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
-            }
-            ])
+            img(shangpinList)
             time -= clock;   
             general_angle +=  v
 			if(time == 0){
                 // 剩余的角度 
                 var residual_degree = general_angle -  360 * Math.floor(general_angle/360)
                 // 传递 到奖品公布
-                publish_prize(residual_degree/45,[{
-                    "prizeName": "iphone手机",
-                    "prizeImg": "https://files.alexhchu.com/2020/09/14/971931e7ab70f.png"
-                },
-                {
-                    "prizeName": "1000元购物卡",
-                    "prizeImg": "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png"
-                },
-                {
-                    "prizeName": "300元购物卡",
-                    "prizeImg": "https://files.alexhchu.com/2020/09/14/6482a474540df.png"
-                },
-                {
-                    "prizeName": "100元话费",
-                    "prizeImg": "https://files.alexhchu.com/2020/09/14/10eaaa9cbe4be.png"
-                },
-                {
-                    "prizeName": "50元话费",
-                    "prizeImg": "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png"
-                },
-                {
-                    "prizeName": "谢谢参与1",
-                    "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
-                },
-                {
-                    "prizeName": "谢谢参与2",
-                    "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
-                },
-                {
-                    "prizeName": "谢谢参与3",
-                    "prizeImg": "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png"
-                }
-                ])
+                publish_prize(residual_degree/45,shangpinList)
                 // console.log
                 // sector.restore()
                 window.clearInterval(interval);
@@ -314,6 +231,7 @@ $(function(){
     }
     //将商品展示出来
     function showS(list){
+        // 商品的对象
         console.log(list)
         last_prize.frequency -= 1;
         $('.frequency p>span').text(last_prize.frequency)
@@ -323,9 +241,87 @@ $(function(){
             $('.showS').show()
             $('.meng').show()
         },500);
+
+        // 发送抽奖结果
+        var userPhone = $('.loginText').val()
+        var settings = {
+            "url": "http://localhost:3000/function/lottery",
+            "method": "POST",
+            "timeout": 0,
+            "data": {
+                "phone": userPhone,
+                "praze":list,
+            }
+        };
+        $.ajax(settings).done(function (response) {
+            
+        });
     }
     $('.onCbu').click(function(e){
         $('.showS').hide()
         $('.meng').hide()
     })
+
+    // 获取验证码
+    $('.obtain_code').click(function(e){
+        var userIphone = $('input[name="phone"]').val()
+        if(userIphone){
+            bnon();
+            var settings = {
+                "url": "http://localhost:3000/user/SendSms",
+                "method": "POST",
+                "timeout": 0,
+                "data": {
+                    "phone": userIphone
+                }
+            }; 
+            $.ajax(settings).done(function (response) {
+                console.log(response.data.msg_id);
+                $(".msg_id").attr("value",response.data.msg_id)
+            });
+        }else{
+            alert('不写手机号我给谁发？')
+        }
+    })
+    function bnon(){
+        var i = 30;
+        setInterval(function () { 
+            $('.obtain_code').text("请稍等"+i+"秒")
+            i-=1;
+        }, 1000); 
+    }
+
+    $('.onlogin').click(function(e){
+        var phone = $('input[name="phone"]').val()
+        var vcode = $('input[name="vcode"]').val()
+        var vcodeID = $('input[name="msg_id"]').val()  
+        if(phone !== ''&& vcode !== ''&&phone.length == 11&&vcode.length == 6){
+            var settings = {
+                "url": "http://localhost:3000/user/addUser",
+                "method": "POST",
+                "timeout": 0,
+                "data": {
+                    "vcode": vcode,
+                    "mobile": phone,
+                    "vcodeID": vcodeID
+                }
+            };
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                $('.land').hide()
+                $('.loginText').text(response.data.iphone)
+                last_prize.frequency = response.data.count
+                $('.frequency p span').text(response.data.count)
+            });
+        }else{
+            alert('验证码错误')
+        }
+    })
+    $('.loginText').click(function(){
+        $('.land').show()
+    })
+    $('.onle').click(function(){
+        $('.land').hide()
+    })
+
 })
