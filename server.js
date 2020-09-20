@@ -1,3 +1,9 @@
+/*
+ * @Author: 小夜勃
+ * @Date: 2020-09-20 11:22:47
+ * @LastEditTime: 2020-09-20 14:43:27
+ * @小夜勃博客:https://zxq.acs.pw/
+ */
 const express = require("express");
 
 var bodyParser = require("body-parser");
@@ -13,9 +19,6 @@ app.use(
     maxAge: 24 * 69 * 60 * 1000, // 过期事件 24小时过期
   })
 );
-
-// app.set("view engine", "pug");
-// app.set("views", "./views");
 
 //设置跨域访问
 app.all("*", (req, res, next) => {

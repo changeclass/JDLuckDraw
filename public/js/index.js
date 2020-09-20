@@ -9,7 +9,7 @@ $(function () {
     name: "",
     index: 0,
     //剩余次数
-    frequency: 2,
+    frequency: 0,
   };
   var shangpinList = [];
   var settings = {
@@ -20,7 +20,40 @@ $(function () {
   };
   $.ajax(settings).done(function (response) {
     console.log(response.data.commodity);
-    shangpinList = response.data.commodity;
+    shangpinList = [
+      {
+        prizeName: "iphone手机",
+        prizeImg: "https://files.alexhchu.com/2020/09/14/971931e7ab70f.png",
+      },
+      {
+        prizeName: "1000元购物卡",
+        prizeImg: "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png",
+      },
+      {
+        prizeName: "500元购物卡",
+        prizeImg: "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png",
+      },
+      {
+        prizeName: "300元购物卡",
+        prizeImg: "https://files.alexhchu.com/2020/09/14/6482a474540df.png",
+      },
+      {
+        prizeName: "100元话费",
+        prizeImg: "https://files.alexhchu.com/2020/09/14/10eaaa9cbe4be.png",
+      },
+      {
+        prizeName: "50元话费",
+        prizeImg: "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png",
+      },
+      {
+        prizeName: "10元话费",
+        prizeImg: "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png",
+      },
+      {
+        prizeName: "谢谢参与",
+        prizeImg: "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png",
+      },
+    ];
     console.log(shangpinList);
 
     if (canvas.getContext) {
@@ -32,7 +65,40 @@ $(function () {
       fan_piece(8, 150);
       //
       console.log(shangpinList);
-      img(shangpinList);
+      img([
+        {
+          prizeName: "iphone手机",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/971931e7ab70f.png",
+        },
+        {
+          prizeName: "1000元购物卡",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png",
+        },
+        {
+          prizeName: "500元购物卡",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png",
+        },
+        {
+          prizeName: "300元购物卡",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/6482a474540df.png",
+        },
+        {
+          prizeName: "100元话费",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/10eaaa9cbe4be.png",
+        },
+        {
+          prizeName: "50元话费",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png",
+        },
+        {
+          prizeName: "10元话费",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png",
+        },
+        {
+          prizeName: "谢谢参与",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png",
+        },
+      ]);
     }
   });
 
@@ -192,7 +258,40 @@ $(function () {
       four_circular();
       // 内部扇形
       fan_piece(8, 150);
-      img(shangpinList);
+      img([
+        {
+          prizeName: "iphone手机",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/971931e7ab70f.png",
+        },
+        {
+          prizeName: "1000元购物卡",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png",
+        },
+        {
+          prizeName: "500元购物卡",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png",
+        },
+        {
+          prizeName: "300元购物卡",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/6482a474540df.png",
+        },
+        {
+          prizeName: "100元话费",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/10eaaa9cbe4be.png",
+        },
+        {
+          prizeName: "50元话费",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png",
+        },
+        {
+          prizeName: "10元话费",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png",
+        },
+        {
+          prizeName: "谢谢参与",
+          prizeImg: "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png",
+        },
+      ]);
       time -= clock;
       general_angle += v;
       if (time == 0) {
@@ -200,7 +299,40 @@ $(function () {
         var residual_degree =
           general_angle - 360 * Math.floor(general_angle / 360);
         // 传递 到奖品公布
-        publish_prize(residual_degree / 45, shangpinList);
+        publish_prize(residual_degree / 45, [
+          {
+            prizeName: "iphone手机",
+            prizeImg: "https://files.alexhchu.com/2020/09/14/971931e7ab70f.png",
+          },
+          {
+            prizeName: "1000元购物卡",
+            prizeImg: "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png",
+          },
+          {
+            prizeName: "500元购物卡",
+            prizeImg: "https://files.alexhchu.com/2020/09/14/e35730f4eb676.png",
+          },
+          {
+            prizeName: "300元购物卡",
+            prizeImg: "https://files.alexhchu.com/2020/09/14/6482a474540df.png",
+          },
+          {
+            prizeName: "100元话费",
+            prizeImg: "https://files.alexhchu.com/2020/09/14/10eaaa9cbe4be.png",
+          },
+          {
+            prizeName: "50元话费",
+            prizeImg: "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png",
+          },
+          {
+            prizeName: "10元话费",
+            prizeImg: "https://files.alexhchu.com/2020/09/14/a48334ee01b1d.png",
+          },
+          {
+            prizeName: "谢谢参与",
+            prizeImg: "https://files.alexhchu.com/2020/09/14/8a7d4913709f9.png",
+          },
+        ]);
         // console.log
         // sector.restore()
         window.clearInterval(interval);

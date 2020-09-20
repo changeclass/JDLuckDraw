@@ -1,11 +1,9 @@
 var express = require("express");
 
-// const axios = require("axios");
-
 const utils = require("./utils");
 const bodyParser = require("body-parser");
 const router = express.Router();
-// const fs = require("fs");
+
 /**
  * 通过 req.userData 可以获取data.json文件夹的数据（已转成对象）
  * 通过对returnData传参可返回向客户端返回的数据
@@ -25,7 +23,7 @@ function returnData(code, message, data = {}) {
     data: data,
   };
 }
-// let numberOfDraws = 3;
+
 let nowadays = utils.nowDay();
 router.get("/prizeInformation", (req, res) => {
   res.send(
@@ -53,7 +51,6 @@ router.post("/lottery", (req, res) => {
 // 返回所有的抽奖结果
 router.get("/checkLotteryResults", (req, res) => {
   let phone = req.session.phone;
-  console.log("1");
   if (req.userData[phone]) {
     let lotteryData = req.userData[phone];
     res.send(returnData(0, "历史抽奖结果", lotteryData));
