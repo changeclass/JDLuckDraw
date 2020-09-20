@@ -1,17 +1,11 @@
-/*
- * @Author: 小夜勃
- * @Date: 2020-09-13 09:48:02
- * @LastEditTime: 2020-09-14 16:48:33
- * @小夜勃博客:https://zxq.acs.pw/
- */
 var express = require("express");
 
-const axios = require("axios");
+// const axios = require("axios");
 
 const utils = require("./utils");
 
 const router = express.Router();
-const fs = require("fs");
+// const fs = require("fs");
 /**
  * 通过 req.userData 可以获取data.json文件夹的数据（已转成对象）
  * 通过对returnData传参可返回向客户端返回的数据
@@ -33,16 +27,16 @@ function returnData(code, message, data = {}) {
 }
 // let numberOfDraws = 3;
 let nowadays = utils.nowDay();
-router.get("/", (req, res) => {
-  let numberOfDraws = 0;
-  let phone = req.session.phone;
-  if (req.userData[phone][nowadays] === undefined) {
-    req.userData[phone][nowadays] = [];
-    utils.writeFile("user.json", req.userData);
-    numberOfDraws = 3 - req.userData[phone][nowadays].length;
-  } else {
-    numberOfDraws = 3 - req.userData[phone][nowadays].length;
-  }
+router.get("/prizeInformation", (req, res) => {
+  // let numberOfDraws = 0;
+  // let phone = req.session.phone;
+  // if (req.userData[phone][nowadays] === undefined) {
+  //   req.userData[phone][nowadays] = [];
+  //   utils.writeFile("user.json", req.userData);
+  //   numberOfDraws = 3 - req.userData[phone][nowadays].length;
+  // } else {
+  //   numberOfDraws = 3 - req.userData[phone][nowadays].length;
+  // }
   res.send(
     returnData(0, "抽奖信息", {
       commodity: req.goodsData,
@@ -52,16 +46,20 @@ router.get("/", (req, res) => {
 });
 
 // 点击抽奖
-router.get("/lottery", (req, res) => {
-  // let phone = "18830705516";
-  let phone = req.session.phone;
-  let numberOfDraws = 3 - req.userData[phone][nowadays].length;
-  console.log(numberOfDraws);
+router.post("/lottery", (req, res) => {
+  let prize = req.body.prize;
+  // let phone = req.body.phone;
+  // let {prize,phone} = req.body;
+  console.log(typeof prize);
+  let phone = "18830705516";
+  // let phone = req.session.phone;
+  let numberOfDraws = 2 - req.userData[phone][nowadays].length;
+  // console.log(numberOfDraws);
   if (numberOfDraws <= 0) {
-    res.send(returnData(0, "抽奖次数已用完"));
+    res.send(returnData(1, "抽奖次数已用完"));
   } else {
-    let prizeName = utils.randomDraw(req.goodsData);
-    req.userData[phone][nowadays].push(prizeName);
+    // let prizeName = utils.randomDraw(req.goodsData);
+    req.userData[phone][nowadays].push(prize.prizeName);
     utils.writeFile("user.json", req.userData);
     --numberOfDraws;
     res.send(returnData(0, "抽奖成功", { prizeName }));
@@ -72,7 +70,7 @@ router.get("/lottery", (req, res) => {
 router.get("/checkLotteryResults", (req, res) => {
   // let phone = "18830705516";
   let phone = req.session.phone;
-
+  console.log("1");
   if (req.userData[phone]) {
     let lotteryData = req.userData[phone];
     res.send(returnData(0, "历史抽奖结果", lotteryData));
