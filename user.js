@@ -1,11 +1,10 @@
 const express = require("express");
 
 const axios = require("axios");
-const fs = require("fs");
 const router = express.Router();
 
 const utils = require("./utils");
-const { nowDay } = require("./utils");
+
 /**
  * 通过 req.userData 可以获取data.json文件夹的数据（已转成对象）
  * 通过对returnData传参可返回向客户端返回的数据
@@ -13,41 +12,6 @@ const { nowDay } = require("./utils");
  *   * message：返回的描述
  *   * data：返回的数据，默认为空对象
  */
-// 尝试读取文件内容
-router.get("/test", (req, res) => {
-  // req.userData 为data文件的数据（已转成对象）
-  console.log(utils.drawCount());
-  res.send(returnData(0, `test`, req.userData["186301111111"]));
-});
-router.post("/login", (req, res) => {
-  var phone = req.session.phone;
-  if (phone) {
-    console.log("已经存在！", phone);
-  } else {
-    req.session.phone = req.body.id;
-    console.log("已经设置：", phone);
-  }
-  res.send(req.body.phone);
-});
-router.get("/login", (req, res) => {
-  res.render("index");
-});
-// 尝试写入文件内容
-router.get("/test1", (req, res) => {
-  let data = req.userData;
-
-  let time = utils.nowDay();
-  if (data["186"] === undefined) {
-    console.log(data["186"]);
-    data["186"] = {};
-    data["186"][time] = [];
-    utils.writeFile("user.json", data).then((result) => {
-      res.send(result);
-    });
-  } else {
-    res.send("已存在");
-  }
-});
 
 // 规定返回格式
 function returnData(code, message, data = {}) {
